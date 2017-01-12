@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS学习首页</title>
+</head>
+<body>
+<div id="box">
+    <a href="#" id="abox">点击我试试</a>
+</div>
+<script>
+    window.onload=function () {
+
+        var abox=document.getElementById("abox");
+        abox.onclick=function (event) {
+            var e=event||window.event;
+            var x=e.x;
+            var y=e.y;
+            console.log(abox.innerText+x+','+y);
+
+        }
+
+//        abox.addEventListener("click",function () {
+//            console.log("gggg ");
+//        });
+        abox.attachEvent("onclick",function () {
+            console.log("gggg");
+        })
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js运动课程-分享到</title>
+    <style type="text/css">
+        *{margin: 0; padding: 0}
+        #share{ position: absolute; left: -50px; top: 50px; }
+        #box{ height: 200px; width: 48px;background-color: red; border:1px solid blue; float: left; }
+        #share span{ display: inline-block; background-color:#FDF986; border:1px solid red; width:20px; float: left; margin-top: 70px;  }
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var oShare=document.getElementById("share");
+            var oBox=document.getElementById("box");
+
+            oShare.onmouseover=function(event) {
+                startMove(0,10);
+            };
+            oShare.onmouseout=function(event) {
+                startMove(-50,-10);
+            };
+
+            var timer=null;
+            function startMove(iTarget,iSpeed){
+                var iTarget=iTarget;
+                var iSpeed=iSpeed;
+                //运行函数前先清空定时器，解决连续点击按钮触发该函数时越走越快的问题
+                clearInterval(timer);
+                timer=setInterval(function(){
+                    //如果该元素距离父亲大于300(这里没有单位)，则清空定时器
+                    if(oShare.offsetLeft==iTarget){
+                        clearInterval(timer);
+                    }else{
+                        //这里不能使用+=，  offsetLeft表示该元素当前的位置离其参考物左边的位置是多少，也就是offsetParent
+                        //也就是说一个oBox外围如果是以body参考物，那么距离就是从0开始起算，否则就是相对的，默认为该元素left的值
+                        oShare.style.left=oShare.offsetLeft+iSpeed+"px";
+                    }
+                },30);
+                
+            }
+        };
+
+    </script>
+</head>
+<body>
+    <div id="share">
+        <div id="box">
+            我会动到你指定的地方的
+        </div>
+        <span>分享到</span>
+    </div>
+</body>
+</html>

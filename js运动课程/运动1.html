@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js运动课程开课</title>
+    <style type="text/css">
+        *{margin: 0; padding: 0}
+        #main{ position: relative; margin: 20px; }
+        #box{ width: 100px; height: 100px; background-color: red; border:1px solid blue; position: absolute; left: 0; top: 50px;}
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var btn=document.getElementsByTagName("input")[0];
+            var box=document.getElementById("box");
+            btn.addEventListener("click",startMove);
+
+            var timer=null;
+            function startMove(){
+                //运行函数前先清空定时器，解决连续点击按钮触发该函数时越走越快的问题
+                clearInterval(timer);
+                timer=setInterval(function(){
+                    var iSpeed=10;
+                    //如果该元素距离父亲大于300(这里没有单位)，则清空定时器
+                    if(box.offsetLeft>=300){
+                        clearInterval(timer);
+                    }else{
+                        //这里不能使用+=，  offsetLeft表示该元素当前的位置离其参考物左边的位置是多少，也就是offsetParent
+                        //也就是说一个box外围如果是以body参考物，那么距离就是从0开始起算，否则就是相对的，默认为该元素left的值
+                        box.style.left=box.offsetLeft+iSpeed+"px";
+                    }
+                },30);
+                
+            }
+        };
+
+    </script>
+</head>
+<body>
+    <div id="main">
+    <input type="button" name="btn" value="点击我开始运动">
+    <div id="box">
+        我会动到你指定的地方的
+    </div>
+    </div>
+</body>
+</html>

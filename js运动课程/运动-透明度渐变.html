@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js运动课程-图片透明渐变</title>
+    <style type="text/css">
+        *{margin: 0; padding: 0}
+        img{ filter: alpha(opacity=30); opacity: 0.3; }
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var oImg=document.getElementById("img1");
+
+            oImg.onmouseover=function(event) {
+                startMove(100);
+            };
+            oImg.onmouseout=function(event) {
+                startMove(80);
+            };
+
+            var timer=null;
+            //将初始透明值使用变量储存起来，以便有个变化的参考值
+            var alpha=30;
+            
+            function startMove(iTarget){
+                var iSpeed=0;
+                
+                var oImg=document.getElementById("img1");
+
+                //运行函数前先清空定时器
+                clearInterval(timer);
+                timer=setInterval(function(){
+                    //如果初始值比给定值要小，也就是从不透明到透明，应该是递增，否则就是递减
+                        if(alpha<iTarget){
+                            iSpeed=5;
+                        }else{
+                            iSpeed=-5;
+                        }
+                        //如果给的当前值(当前值会实时变化)等于目标值，则说明达到目的可以清除定时器了
+                        if(alpha==iTarget){
+                            clearInterval(timer)
+                        }else{
+                            //每自调用一次值就变化一次，然后赋给样式，以便呈现渐变透明的效果
+                            alpha+=iSpeed;
+                            oImg.style.filter="alpha("+alpha+")";
+                            oImg.style.opacity=alpha/100
+                        }
+                    
+                },30);
+                
+            }
+        };
+
+    </script>
+</head>
+<body>
+    <img id="img1" src="../img/OceanCurrents.jpg">
+</body>
+</html>
